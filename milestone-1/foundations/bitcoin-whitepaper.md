@@ -1,12 +1,20 @@
 # Bitcoin Whitepaper — Notes
 
-## Key Concepts
+Menciona que el comercio en internet tradicional está totalmente manejado por instituciones financieras. Y a pesar de que funciona "bien", estas transacciones cuestan más y siguen teniendo los problemas de estos medios basados en confianza. Aquí Satoshi menciona que se necesita un sistema de pagos electrónicos basados en "cryptographic proof" (creo que lo más cercano sería prueba criptográfica, no encontré una versión en español del documento), esto eliminaría la necesidad de una tercera parte de confianza como una institución financiera. Esto conllevaría a transacciones irreversibles para proteger a los vendedores de fraude, pero también protegería a compradores mediante mecanismos de garantía (escrows).
 
-- Proof-of-Work
-- Decentralized ledger
-- UTXO model
-- Peer-to-peer electronic cash
+Con respecto a las transacciones primero empieza dando la definición de la moneda digital como una cadena de firmas digitales. Cada dueño de la moneda firma esta misma y se la da al siguiente dueño. Ya con esto nosotros (o terceros) podrían verificar todas las firmas y determinar la cadena de ownership (creo que el término más adecuado sería pertenencia pero ahí estamos).
 
-## Questions / Takeaways
+*ALGO SIMILAR* ocurre cuando pagamos con dinero real. El ownership de nuestro billete (digamos) se transfiere de manera física y por consiguiente su valor, las personas que reciben el dinero son los verificadores.
 
-> Write your notes here...
+Volviendo al White Paper de Bitcoin (cuyo título es Bitcoin: A peer-to-peer electronic cash system). Existiría un problema con el doble gasto ya que no existe una manera de asegurar que un dueño no lo pueda hacer. Una solución como una central que revise las monedas digitales y sus transacciones cuya función sea de recoger la moneda digital y acuñar otra para su nuevo dueño cae en la premisa de que es necesaria esta tercera parte para realizarlo, lo cual no es una gran opción ya que es similar a un banco.
+
+*ACA VIENE LO BUENO*. La solución de Satoshi es una red peer-to-peer donde todos los participantes (nodes) tienen una copia del historial completo de transacciones. Cuando alguien quiere hacer un pago, transmite la transacción a todos en la red, y los nodes compiten para validar y agrupar estas transacciones en bloques. Acá entra el concepto de timestamp server (servidor de marcas de tiempo, aunque me suena raro en español) que básicamente funciona sellando un bloque con su hash y el hash del bloque anterior, formando así una cadena — de ahí lo de blockchain.
+
+Para que un node pueda proponer un bloque necesita resolver un problema matemático (proof-of-work), básicamente encontrar un número que al hacerle hash cumpla con ciertos requisitos. Esto requiere poder de cómputo y por eso se llama mining. El primer node que lo resuelve transmite su bloque a la red y los demás lo verifican. Si está bien, lo agregan a su copia de la cadena y pasan al siguiente bloque. *LA REGLA ES SIMPLE*: la cadena más larga (con más proof-of-work acumulado) es la válida. Si alguien intenta gastar dos veces la misma moneda, tendría que minar más rápido que el resto de la red para imponer su versión de los hechos, lo cual es computacionalmente inviable si no tenés la mayoría del poder de hash.
+
+Esto también resuelve el problema de la confianza de una manera bastante elegante. No necesitas confiar en una entidad central porque la red entera está verificando todo el tiempo. Cada node puede entrar y salir cuando quiera, y con tal de que siempre se quede con la cadena más larga ya está sincronizado con la verdad de la red.
+
+*INCENTIVOS*. Para que la red funcione los miners tienen que tener razón para participar. Satoshi propone que el primer node en encontrar un bloque válido recibe una cantidad de bitcoins recién creados (coinbase transaction) y también las comisiones de las transacciones que incluyó en ese bloque. Así se ponen en circulación nuevos bitcoins y se paga a los miners por mantener la red segura. Es un sistema autosostenido (o al menos esa es la idea).
+
+Lo mas loco es como termina el whitepaper, cito textualmente: We have proposed a system for electronic transactions without relying on trust. Menciona la robustez, la solucion para el doble gasto entre otros. De haberlo visto en el 2008 (y si hubiese sido mayor de edad en ese entonces) posiblemente, y de manera sincera, no lo hubiera tenido en el radar en ese entonces. Debe haber sido un privilegio y posiblemente un estigma confiar en Bitcoin en esos tiempos.
+
